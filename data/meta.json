@@ -1,0 +1,14 @@
+{
+  "action_count": 361,
+  "by_stream": {
+    "dk": 182,
+    "shitauke": 179
+  },
+  "earliest": "2010-04-09",
+  "latest": "2026-07-24",
+  "unparsed_count": 15,
+  "penalty_amounts_published": 0,
+  "source": "出典: 公正取引委員会ウェブサイト",
+  "licence": "公共データ利用規約(第1.0版) / PDL1.0",
+  "processing": "公表されている年度別一覧表から事実項目のみを抽出・構造化したもの。内容・概要の記述本文は収録していない。編集・加工の主体は jftc-actions であり、公正取引委員会が作成したものではない。"
+}

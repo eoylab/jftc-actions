@@ -1,0 +1,38 @@
+{
+  "name": "jftc-actions",
+  "version": "0.1.0",
+  "description": "公正取引委員会の排除措置命令・確約計画・取適法勧告のデータセットと MCP サーバー / Dataset and MCP server for Japan Fair Trade Commission enforcement actions",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "jftc-mcp": "src/mcp/server.mjs"
+  },
+  "files": [
+    "src",
+    "data"
+  ],
+  "scripts": {
+    "build:data": "node src/collect.mjs",
+    "test": "node --test --test-concurrency=1 \"test/*.test.mjs\"",
+    "metrics": "node scripts/metrics.mjs"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "japan",
+    "japanese",
+    "legal",
+    "compliance",
+    "antitrust",
+    "subcontract-act",
+    "open-data",
+    "dataset"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eoylab/jftc-actions.git"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

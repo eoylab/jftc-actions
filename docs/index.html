@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>公正取引委員会 措置一覧（排除措置命令・取適法勧告）| jftc-actions</title>
+<meta name="description" content="公正取引委員会が公表した排除措置命令等と取適法（旧下請法）勧告を、事業者名・条項・年度で検索できる一覧。361件・2010年以降・全件に出典URL。データセットとMCPサーバーとして再利用できます。">
+<style>
+:root{--ink:#1c1c1e;--muted:#61616b;--line:#e2e2e6;--bg:#fff;--accent:#1f4e79;--soft:#f2f6fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.8;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  font-feature-settings:"palt" 1}
+.wrap{max-width:58rem;margin:0 auto;padding:0 1.25rem}
+header{border-bottom:1px solid var(--line);padding:1.5rem 0}
+h1{font-size:1.35rem;margin:0 0 .4rem}
+.lede{color:var(--muted);font-size:.92rem;margin:0}
+.controls{display:flex;gap:.6rem;flex-wrap:wrap;padding:1.2rem 0;border-bottom:1px solid var(--line)}
+input,select{font:inherit;padding:.5rem .7rem;border:1px solid var(--line);border-radius:6px;background:#fff}
+input{flex:1;min-width:14rem}
+.count{color:var(--muted);font-size:.88rem;padding:.9rem 0}
+.case{border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem;margin:.7rem 0}
+.top{display:flex;gap:.6rem;align-items:baseline;flex-wrap:wrap}
+.date{color:var(--muted);font-size:.86rem;font-variant-numeric:tabular-nums}
+.tag{font-size:.78rem;padding:.15rem .5rem;border-radius:4px;background:var(--soft);
+  color:var(--accent);font-weight:700;white-space:nowrap}
+.subject{font-weight:700;font-size:1rem}
+.prov{margin:.45rem 0 0;font-size:.82rem;color:var(--muted)}
+.prov span{border:1px solid var(--line);border-radius:4px;padding:.1rem .4rem;margin-right:.3rem;
+  display:inline-block;white-space:nowrap}
+.case a{color:var(--accent);font-size:.85rem;margin-right:.8rem}
+.notice{background:var(--soft);border-left:3px solid var(--accent);padding:.85rem 1.1rem;
+  margin:1.2rem 0;font-size:.9rem}
+footer{border-top:1px solid var(--line);margin-top:2rem;padding:1.4rem 0 3rem;
+  color:var(--muted);font-size:.84rem;line-height:1.9}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>公正取引委員会 措置一覧</h1>
+<p class="lede">排除措置命令等（独占禁止法）と勧告（取適法・旧下請法）を、事業者名・条項・年度で検索できます。全件に出典URLがあります。<strong>違反の判定はしていません</strong> — 各件は既に発出された措置の再記述です。</p>
+</div></header>
+
+<div class="wrap">
+<div class="controls">
+  <input id="q" type="search" placeholder="事業者名・件名・事件番号で検索">
+  <select id="stream"><option value="">法律（すべて）</option><option value="dk">独占禁止法の措置</option><option value="shitauke">取適法（旧下請法）の勧告</option></select>
+  <select id="prov"><option value="">条項（すべて）</option></select>
+  <select id="year"><option value="">年度（すべて）</option></select>
+</div>
+<p class="count" id="count">読み込み中…</p>
+
+<div class="notice">
+<strong>課徴金額は入っていません。</strong>公表されている一覧表に金額の列がなく、年によっては
+alt が空の PNG 画像の中の表にしか存在しないためです。<strong>画像から OCR で読んで事実として出すことはしていません。</strong>
+全件 <code>penalty_amount: null</code> です。<br>
+<a href="./pricing.html"><strong>この構造化と更新通知について →</strong></a>
+</div>
+
+<div id="list"></div>
+</div>
+
+<footer><div class="wrap">
+<p><strong>出典: 公正取引委員会ウェブサイト</strong>（各件のリンク先が一次情報です）。
+公表されている年度別一覧表から<strong>事実項目のみ</strong>を抽出・構造化したもので、
+「内容」「概要」の記述本文は収録していません。<strong>代表者氏名も収録していません。</strong></p>
+<p><strong>本データは公正取引委員会が公表した資料から jftc-actions が抽出・構造化したものであり、
+公正取引委員会が作成・公表したものではありません。</strong></p>
+<p>元データは<a href="https://www.jftc.go.jp/kiyaku/index.html">公共データ利用規約（第1.0版）</a>準拠。コードは MIT。
+<a href="https://github.com/eoylab/jftc-actions">GitHub</a> でデータセット（JSON / JSONL / CSV）と MCP サーバーを配布しています。</p>
+</div></footer>
+
+<script>
+const LABEL = { dk: '独占禁止法', shitauke: '取適法（旧下請法）' };
+let all = [];
+const el = (id) => document.getElementById(id);
+
+fetch('./actions.json').then((r) => r.json()).then((data) => {
+  all = data;
+  fill('prov', [...new Set(data.flatMap((a) => a.provisions))].sort());
+  fill('year', [...new Set(data.map((a) => a.fiscal_year))].sort((a, b) => b - a).map(String));
+  render();
+}).catch(() => { el('count').textContent = 'データを読み込めませんでした'; });
+
+function fill(id, values) {
+  for (const v of values) {
+    const option = document.createElement('option');
+    option.value = v; option.textContent = id === 'year' ? `${v}年度` : v;
+    el(id).append(option);
+  }
+}
+
+function render() {
+  const q = el('q').value.trim();
+  const stream = el('stream').value, prov = el('prov').value, year = el('year').value;
+  const hits = all.filter((a) => {
+    if (stream && a.stream !== stream) return false;
+    if (prov && !a.provisions.includes(prov)) return false;
+    if (year && String(a.fiscal_year) !== year) return false;
+    if (q && ![a.subject_as_published, a.case_number, a.provisions_as_published]
+      .filter(Boolean).join(' ').includes(q)) return false;
+    return true;
+  });
+  el('count').textContent = `${hits.length}件 / 全${all.length}件`;
+  el('list').replaceChildren(...hits.slice(0, 300).map(card));
+  if (hits.length > 300) {
+    const more = document.createElement('p');
+    more.className = 'count';
+    more.textContent = `表示は先頭300件です。絞り込んでください。`;
+    el('list').append(more);
+  }
+}
+
+function card(a) {
+  const div = document.createElement('div'); div.className = 'case';
+  const top = document.createElement('div'); top.className = 'top';
+  const date = document.createElement('span'); date.className = 'date'; date.textContent = a.action_date;
+  const tag = document.createElement('span'); tag.className = 'tag'; tag.textContent = LABEL[a.stream] ?? a.stream;
+  const subject = document.createElement('span'); subject.className = 'subject';
+  subject.textContent = a.subject_as_published;
+  top.append(date, tag, subject);
+  div.append(top);
+  if (a.case_number) {
+    const num = document.createElement('div'); num.className = 'date';
+    num.textContent = `事件番号 ${a.case_number}`; div.append(num);
+  }
+  if (a.provisions.length) {
+    const prov = document.createElement('p'); prov.className = 'prov';
+    for (const p of a.provisions) {
+      const span = document.createElement('span'); span.textContent = p; prov.append(span);
+    }
+    div.append(prov);
+  }
+  const links = document.createElement('p'); links.className = 'prov';
+  if (a.press_release_url) {
+    const press = document.createElement('a');
+    press.href = a.press_release_url; press.textContent = '報道発表資料'; press.rel = 'noopener';
+    links.append(press);
+  }
+  const src = document.createElement('a');
+  src.href = a.source_url; src.textContent = '出典（年度別一覧）'; src.rel = 'noopener';
+  links.append(src);
+  div.append(links);
+  return div;
+}
+
+for (const id of ['q', 'stream', 'prov', 'year']) el(id).addEventListener('input', render);
+</script>
+</body>
+</html>
