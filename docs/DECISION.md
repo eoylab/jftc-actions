@@ -11,6 +11,7 @@ Monetization Signal が出なければ、**データ件数を増やさない。*
 |---|---|---|
 | **到達** | unique views / clones / referrers | traffic API |
 | **CTA Click** | `orders/*.md` のビュー数を**価格ごとに分離** | traffic API の `popular/paths` |
+| | **0 と測定不能を分ける。**`popular/paths` は上位10パスしか返さないので、出てこない tier は「0」ではなく「10位より下」の可能性がある | 返却件数が10未満なら一覧は完全なので不在＝0。10件で飽和していたら `observable: false` として記録し、判定に使わない |
 | **Inquiry** | Issue #1 の 👍 とコメント | issues API |
 | **Signup** | watchers ＋ Release のダウンロード数 | repo API / releases API |
 
@@ -25,7 +26,8 @@ traffic API が返すのは `github.com/owner/repo/...` のパスで、
 
 | 観測 | 判断 |
 |---|---|
-| `orders/*.md` の合計クリック **< 20** | **買い手仮説が外れ。価格の書き換えで粘らない。** 5tier を README と Pages から下げ、データセットは無償公開のみ残す（維持は月次 Action だけ） |
+| **観測できた**クリック合計 **< 20**、かつ測定不能な tier が無い | **買い手仮説が外れ。価格の書き換えで粘らない。** 5tier を README と Pages から下げ、データセットは無償公開のみ残す（維持は月次 Action だけ） |
+| 観測できたクリックが少なく、**測定不能な tier がある** | **止めない。判定を保留する。** `popular/paths` が飽和しているだけの可能性があり、**測定不能を0と読むと、届いていないことを関心の不在と誤認して自分で実験を殺す。**👍・コメント・watchers・Release DL の明示的シグナルで判断する |
 | 👍 0 **かつ** コメント 0 | Inquiry ゼロ。`pricing` を削除し、`orders/*.md` を README の1行に縮退 |
 | watchers **< 5** かつ Release DL **0** | Distribution が機能していない。referrers でどの経路が効いたかを見る。**チャネルを変える前に題材の適否を先に疑う** |
 
@@ -36,7 +38,9 @@ traffic API が返すのは `github.com/owner/repo/...` のパスで、
 **`orders/watch.md`（月 ¥4,980）が5tier中で最多クリックを取ること。**
 これが勝てば「維持工程が商品」が再現されたことになる。
 
-- `license.md`（年 ¥120,000）が勝つ → **保証に払う**が確認できた。価格を上げる
+- `license.md`（年 ¥120,000）が勝つ → **取り決めと構造化に払う**が確認できた。
+  ただし**そこで網羅性の保証を売り始めない。** 抜けたときに何をするかの運用設計が先で、
+  設計のない「保証」は売ってはいけないものを売ることになる
 - `api.md` だけが勝つ → 買い手は開発者。B2Bコンプラの仮説を捨てて API / MCP 側に寄せる
 - `alert.md` が勝つ → 買い手は与信・調達。公取委だけで足りるか聞く
 - `onboarding.md` だけが勝つ → **一番危ない。** 契約数に比例して人手が増える唯一の商品なので、

@@ -44,10 +44,32 @@ snapshot.releaseDownloads = api('releases?per_page=100').flatMap((release) =>
   release.assets.map((asset) => ({ tag: release.tag_name, name: asset.name, downloads: asset.download_count })));
 
 // CTA Click, split by which price the reader opened.
+//
+// `popular/paths` returns only the ten busiest paths, so a tier that is absent
+// from the response is not necessarily a tier nobody opened — it may simply be
+// outside the top ten. Recording that as zero would be a measurement error in
+// the direction that kills the experiment: the decision rule stops everything
+// at fewer than twenty clicks, and unobservable counted as zero reaches that
+// threshold on its own.
+//
+// So absence means zero only when the list is short enough to be complete.
+// When it is saturated, the tier is `null` with `observable: false`, and
+// `belowAtLeast` records the smallest count that did fit — whatever the tier
+// got, it got less than that.
+const PATHS_CAP = 10;
+const saturated = snapshot.paths.length >= PATHS_CAP;
+const smallestReported = snapshot.paths.length === 0
+  ? null : Math.min(...snapshot.paths.map((p) => p.count));
+
 snapshot.ctaClicks = TIERS.map((tier) => {
   const hit = snapshot.paths.find((p) => p.path.endsWith(`/orders/${tier}.md`));
-  return { tier, views: hit?.count ?? 0, uniques: hit?.uniques ?? 0 };
+  if (hit !== undefined) {
+    return { tier, views: hit.count, uniques: hit.uniques, observable: true };
+  }
+  if (!saturated) return { tier, views: 0, uniques: 0, observable: true };
+  return { tier, views: null, uniques: null, observable: false, belowAtLeast: smallestReported };
 });
+snapshot.pathsSaturated = saturated;
 
 // Inquiry.
 const issues = api('issues?labels=commercial-interest&state=all&per_page=100');
@@ -56,11 +78,14 @@ snapshot.inquiry = issues.map((issue) => ({
   thumbsUp: issue.reactions['+1'], comments: issue.comments,
 }));
 
+const observed = snapshot.ctaClicks.filter((c) => c.observable);
 snapshot.totals = {
   uniqueViews: snapshot.views.uniques,
   uniqueClones: snapshot.clones.uniques,
-  ctaClicks: snapshot.ctaClicks.reduce((n, c) => n + c.views, 0),
-  ctaClickUniques: snapshot.ctaClicks.reduce((n, c) => n + c.uniques, 0),
+  // A floor, not a total: tiers outside the top ten are missing from it.
+  ctaClicksObserved: observed.reduce((n, c) => n + c.views, 0),
+  ctaClickUniquesObserved: observed.reduce((n, c) => n + c.uniques, 0),
+  ctaTiersUnobservable: snapshot.ctaClicks.filter((c) => !c.observable).map((c) => c.tier),
   thumbsUp: snapshot.inquiry.reduce((n, i) => n + i.thumbsUp, 0),
   inquiryComments: snapshot.inquiry.reduce((n, i) => n + i.comments, 0),
   watchers: snapshot.watchers,
@@ -80,7 +105,17 @@ console.log('  到達');
 console.log(`    views ${snapshot.views.count} (uniques ${t.uniqueViews})   clones ${snapshot.clones.count} (uniques ${t.uniqueClones})`);
 console.log(`    referrers ${snapshot.referrers.map((r) => `${r.referrer}:${r.uniques}`).join(' ') || '(none)'}`);
 console.log('\n  CTA Click（どの価格が見られたか）');
-for (const c of snapshot.ctaClicks) console.log(`    ${c.tier.padEnd(11)} ${c.views} (uniques ${c.uniques})`);
+for (const c of snapshot.ctaClicks) {
+  console.log(c.observable
+    ? `    ${c.tier.padEnd(11)} ${c.views} (uniques ${c.uniques})`
+    : `    ${c.tier.padEnd(11)} 測定不能（上位10パスの外。${c.belowAtLeast} 未満）`);
+}
+if (snapshot.pathsSaturated) {
+  console.log('    ※ popular/paths が上限10件で飽和している。'
+    + '出ていない tier は 0 ではなく「10位より下」であって、0 と読んではいけない');
+}
+console.log(`    観測できた合計 ${t.ctaClicksObserved}`
+  + (t.ctaTiersUnobservable.length > 0 ? `（未観測: ${t.ctaTiersUnobservable.join(' ')}）` : ''));
 console.log('\n  Inquiry / Signup');
 console.log(`    👍 ${t.thumbsUp}   コメント ${t.inquiryComments}   watchers ${t.watchers}   Release DL ${t.downloads}`);
 console.log('');

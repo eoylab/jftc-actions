@@ -88,7 +88,8 @@ code{background:var(--soft);padding:.1rem .3rem;border-radius:3px;font-size:.86e
 <strong>ライセンスは既に商用可なので、これが要るのは稟議に提供元の保証が必要な場合です。</strong></p>
 <p class="price">目安：年 ¥120,000</p>
 <p style="font-size:.85rem;color:var(--muted)"><strong>手作業の置き換えコスト（年¥95,200）を上回るので、人件費の置き換えでは正当化できません。</strong>
-正当化できるのは「見落としゼロの保証」と「課徴金額の構造化」の2点だけです。</p>
+上回る分を正当化しうるのは、更新の監視と差分通知・課徴金額の構造化・更新頻度とスキーマ互換の取り決めです。
+<strong>「見落としはありません」とは書きません</strong> — 網羅性の保証は運用と契約の設計が要るので、その段階で決めます。</p>
 <a class="vote" href="https://github.com/eoylab/jftc-actions/blob/main/orders/license.md">詳細と投票 →</a>
 </div>
 
@@ -109,6 +110,12 @@ code{background:var(--soft);padding:.1rem .3rem;border-radius:3px;font-size:.86e
 機械が画像から読んだ金額が、誰かの稟議書や取引先評価に引用される事故を作りたくないので、
 <code>penalty_status</code> に理由を書いて null にしています。
 <strong>この構造化に払う人がいるなら、それが最初に作るものです。</strong></p>
+
+<h2>収録範囲について</h2>
+<p><strong>網羅していると主張しません。</strong>収録範囲は公正取引委員会が公表している年度別一覧表が返した範囲で、
+一覧表に載らない措置（確約計画の認定など）は入っていません。
+<code>data/meta.json</code> の件数と <code>data/unparsed.json</code> の理由で、
+<strong>何が入っていないかを確認できる</strong>ようにしています。</p>
 
 <h2>やらないこと</h2>
 <p><strong>違反かどうかの判定はしません。</strong>

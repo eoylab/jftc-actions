@@ -162,29 +162,35 @@
     {
       "tier": "watch",
       "views": 0,
-      "uniques": 0
+      "uniques": 0,
+      "observable": true
     },
     {
       "tier": "api",
       "views": 0,
-      "uniques": 0
+      "uniques": 0,
+      "observable": true
     },
     {
       "tier": "alert",
       "views": 0,
-      "uniques": 0
+      "uniques": 0,
+      "observable": true
     },
     {
       "tier": "license",
       "views": 0,
-      "uniques": 0
+      "uniques": 0,
+      "observable": true
     },
     {
       "tier": "onboarding",
       "views": 0,
-      "uniques": 0
+      "uniques": 0,
+      "observable": true
     }
   ],
+  "pathsSaturated": false,
   "inquiry": [
     {
       "number": 1,
@@ -196,8 +202,9 @@
   "totals": {
     "uniqueViews": 0,
     "uniqueClones": 0,
-    "ctaClicks": 0,
-    "ctaClickUniques": 0,
+    "ctaClicksObserved": 0,
+    "ctaClickUniquesObserved": 0,
+    "ctaTiersUnobservable": [],
     "thumbsUp": 0,
     "inquiryComments": 0,
     "watchers": 0,

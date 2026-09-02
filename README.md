@@ -99,6 +99,10 @@ git clone https://github.com/eoylab/jftc-actions.git
 **使いたいものに [Issue #1](https://github.com/eoylab/jftc-actions/issues/1) で 👍** を付けてください。
 条件があればコメントでどうぞ。価格の根拠は各ページに書いてあります。
 
+**網羅性の保証は売っていません。** 収録範囲は公表されている一覧表が返した範囲で、
+`data/meta.json` と `data/unparsed.json` で何が入っていないかを確認できます。
+何をどこまで約束できるかは、実際の契約と運用の設計に進む段階で決めます。
+
 ## 既知の限界
 
 - **課徴金額・減額率を持っていません。** 全件 null です。公表されている一覧表に列がなく、
