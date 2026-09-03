@@ -1,0 +1,213 @@
+{
+  "date": "2026-09-03",
+  "views": {
+    "count": 0,
+    "uniques": 0,
+    "views": [
+      {
+        "timestamp": "2026-08-20T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-21T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-22T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-23T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-24T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-25T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-26T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-27T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-28T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-29T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-30T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-31T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-09-01T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-09-02T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      }
+    ]
+  },
+  "clones": {
+    "count": 44,
+    "uniques": 19,
+    "clones": [
+      {
+        "timestamp": "2026-08-20T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-21T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-22T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-23T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-24T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-25T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-26T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-27T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-28T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-29T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-30T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-08-31T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-09-01T00:00:00Z",
+        "count": 0,
+        "uniques": 0
+      },
+      {
+        "timestamp": "2026-09-02T00:00:00Z",
+        "count": 44,
+        "uniques": 19
+      }
+    ]
+  },
+  "referrers": [],
+  "paths": [],
+  "stars": 0,
+  "forks": 0,
+  "watchers": 0,
+  "releaseDownloads": [],
+  "ctaClicks": [
+    {
+      "tier": "watch",
+      "views": 0,
+      "uniques": 0,
+      "observable": true
+    },
+    {
+      "tier": "api",
+      "views": 0,
+      "uniques": 0,
+      "observable": true
+    },
+    {
+      "tier": "alert",
+      "views": 0,
+      "uniques": 0,
+      "observable": true
+    },
+    {
+      "tier": "license",
+      "views": 0,
+      "uniques": 0,
+      "observable": true
+    },
+    {
+      "tier": "onboarding",
+      "views": 0,
+      "uniques": 0,
+      "observable": true
+    }
+  ],
+  "pathsSaturated": false,
+  "inquiry": [
+    {
+      "number": 1,
+      "title": "この価格で使いますか（更新通知 ¥4,980/月・API ¥9,800/月・Alert ¥19,800/月・ライセンス ¥120,000/年・導入支援 ¥120,000）",
+      "thumbsUp": 0,
+      "comments": 0
+    }
+  ],
+  "totals": {
+    "uniqueViews": 0,
+    "uniqueClones": 19,
+    "ctaClicksObserved": 0,
+    "ctaClickUniquesObserved": 0,
+    "ctaTiersUnobservable": [],
+    "thumbsUp": 0,
+    "inquiryComments": 0,
+    "watchers": 0,
+    "downloads": 0
+  }
+}
