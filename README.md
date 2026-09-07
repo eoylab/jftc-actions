@@ -9,6 +9,11 @@
 
 一覧: <https://eoylab.github.io/jftc-actions/>
 
+## 姉妹データセット
+
+**[eoylab/keihyo-cases](https://github.com/eoylab/keihyo-cases)** — 景品表示法の措置命令・課徴金納付命令
+151件（消費者庁）。同じ設計方針（判断しない・自然人を扱わない・出典URL付き）で作っています。
+
 ## これは何をしないか
 
 - **判定しない。** 「この取引は下請法違反か」を答える機能は入れません
