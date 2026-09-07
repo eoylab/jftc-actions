@@ -15,7 +15,8 @@
     "build:data": "node src/collect.mjs",
     "test": "node --test --test-concurrency=1 \"test/*.test.mjs\"",
     "metrics": "node scripts/metrics.mjs",
-    "build:bundle": "node scripts/build-bundle.mjs"
+    "build:bundle": "node scripts/build-bundle.mjs",
+    "build:mcpb": "node scripts/build-mcpb.mjs"
   },
   "keywords": [
     "mcp",
