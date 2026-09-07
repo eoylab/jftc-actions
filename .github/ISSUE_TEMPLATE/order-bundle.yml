@@ -1,0 +1,54 @@
+name: 統合バンドルを注文する（¥3,000）
+description: 512件を1つの表に揃えたCSV＋出典一覧＋商用利用確認書。決済はまだ準備中で、いまは手渡しで対応します。
+title: "注文：処分記録 統合バンドル"
+labels: ["order"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **先に書いておきます。同じ元データは無料です。**
+        公共データ利用規約準拠で誰でも商用利用でき、JSON / JSONL / CSV と MCP サーバーが
+        [keihyo-cases](https://github.com/eoylab/keihyo-cases) と
+        [jftc-actions](https://github.com/eoylab/jftc-actions) にあります。
+        **JSON で足りるなら、注文しないでください。**
+
+        買っていただくのは、**2所管の異なる記録を1つの表に揃える作業**（手でやると2〜3時間）と、
+        **出典URL 181件の一覧**、**稟議に添付できる商用利用の確認書**です。
+
+        **決済はまだ用意できていません。** カード決済の準備が終わるまでは、
+        このIssueで受け付けて**請求と受け渡しを個別に行います。**
+        「先に中身を見たい」という場合も、ここに書いてください。
+  - type: input
+    id: contact
+    attributes:
+      label: 連絡先
+      description: 受け渡しと請求の連絡に使います。GitHub の通知で足りる場合は「Issueで可」と書いてください。
+      placeholder: Issueで可 / メールアドレス
+    validations:
+      required: true
+  - type: dropdown
+    id: format
+    attributes:
+      label: 受け取りたい形
+      options:
+        - CSV（Excelでそのまま開ける・既定）
+        - JSON も一緒に
+        - 相談したい
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 何に使いますか（任意）
+      description: |
+        **答えなくて構いません。** ただし、これが次に何を作るかを決めます。
+        「広告審査の参考に」「取引先の確認に」「研究に」程度で十分です。
+  - type: checkboxes
+    id: understood
+    attributes:
+      label: 確認
+      options:
+        - label: 同じ元データが無料で公開されていることを読みました
+          required: true
+        - label: 課徴金額は全件未収録（公表一覧に金額の列が無いため）であることを読みました
+          required: true
