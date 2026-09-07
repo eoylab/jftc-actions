@@ -68,6 +68,11 @@ const rows = [
   })),
 ].sort((x, y) => (x.date < y.date ? 1 : -1));
 
+// The version stamp. It goes in the filename and in the bundled README, because
+// a buyer who comes back in three months needs to know which one they have —
+// the monthly refresh changes the contents while the price stays the same.
+const stamp = new Date().toISOString().slice(0, 10);
+
 const csvCell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 // BOM: without it Excel reads UTF-8 Japanese as mojibake, and the buyer's first
 // impression of a paid file is a screen of garbage.
@@ -141,6 +146,8 @@ const licence = `# 商用利用についての確認書
 
 const README = `# 処分記録 統合バンドル
 
+**版：${stamp} 時点 / ${rows.length}件**
+
 **${rows.length}件**（景品表示法 ${rows.filter((r) => r.authority === '消費者庁').length} / 独占禁止法・取適法 ${rows.filter((r) => r.authority === '公正取引委員会').length}）
 ${rows.at(-1).date} 〜 ${rows[0].date}
 
@@ -201,10 +208,16 @@ const end = Buffer.alloc(22);
 end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(FILES.length, 8); end.writeUInt16LE(FILES.length, 10);
 end.writeUInt32LE(dir.length, 12); end.writeUInt32LE(offset, 16);
 
+const named = `enforcement-bundle-${rows.length}-${stamp}.zip`;
+
 rmSync('build', { recursive: true, force: true });
 mkdirSync('build', { recursive: true });
 const zip = Buffer.concat([...locals, dir, end]);
+writeFileSync(`build/${named}`, zip);
+// A stable path as well, so the fulfilment runbook and the workflows do not
+// have to guess today's date.
 writeFileSync('build/enforcement-bundle.zip', zip);
-console.log(`build/enforcement-bundle.zip  ${zip.length} bytes  ${rows.length} 件`);
+console.log(`build/${named}  ${zip.length} bytes  ${rows.length} 件`);
+console.log('  build/enforcement-bundle.zip も同じ内容（安定パス）');
 console.log(`  sha256 ${createHash('sha256').update(zip).digest('hex').slice(0, 16)}…`);
 console.log(`  出典 ${sources.length} 件 / 列 ${COLUMNS.length}`);

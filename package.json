@@ -16,7 +16,8 @@
     "test": "node --test --test-concurrency=1 \"test/*.test.mjs\"",
     "metrics": "node scripts/metrics.mjs",
     "build:bundle": "node scripts/build-bundle.mjs",
-    "build:mcpb": "node scripts/build-mcpb.mjs"
+    "build:mcpb": "node scripts/build-mcpb.mjs",
+    "image": "node scripts/make-product-image.mjs"
   },
   "keywords": [
     "mcp",
