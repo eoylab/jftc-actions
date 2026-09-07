@@ -2,15 +2,19 @@
 
 **上から順に入れれば終わり。** 判断するところはありません。
 
-## 事前に1回だけ
+## 添付する2ファイルは、もう出来ている
+
+**端末で何も走らせる必要はありません。** この2つが既にあります。
 
 ```
-cd ~/side-projects/jftc-actions
-npm run build:bundle
+/Users/eoysub2/side-projects/jftc-actions/build/enforcement-bundle-512-2026-09-07.zip
+/Users/eoysub2/side-projects/jftc-actions/creative/product.png
 ```
 
-**`build/enforcement-bundle-512-2026-09-07.zip` ができる。これを添付する。**
-（`build/enforcement-bundle.zip` も同じ内容。どちらでもよい）
+ZIP は 216,603 bytes・512件・4ファイル（CSV / SOURCES.md / COMMERCIAL-USE.md / README.md）、
+画像は 1200×1200。**この2つをブラウザで選ぶだけです。**
+
+（作り直したくなった場合だけ `npm run build:bundle`。中身は決定的なので同じものが出ます）
 
 **注文が来るたびに作り直す必要はない。** 買い切りなので、公開時点の内容で固定する。
 月次で増えるのは無料版のほうである。
