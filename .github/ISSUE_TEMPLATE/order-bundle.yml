@@ -52,3 +52,5 @@ body:
           required: true
         - label: 課徴金額は全件未収録（公表一覧に金額の列が無いため）であることを読みました
           required: true
+        - label: 販売条件（受け渡し・返金・更新なし）を読みました — https://eoylab.github.io/jftc-actions/terms.html
+          required: true

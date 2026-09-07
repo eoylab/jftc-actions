@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>販売条件・よくある質問｜統合バンドル</title>
+<meta name="description" content="処分記録 統合バンドル（¥3,000）の販売条件。何が入っているか、どう届くか、返金の扱い、収録していないもの。同じ元データは無料で公開しています。">
+<style>
+:root{--ink:#1c1c1e;--muted:#61616b;--line:#e2e2e6;--bg:#fff;--accent:#1f4e79;--soft:#f2f6fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.85;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+  font-feature-settings:"palt" 1}
+.wrap{max-width:44rem;margin:0 auto;padding:0 1.25rem}
+header{border-bottom:1px solid var(--line);padding:1.5rem 0}
+h1{font-size:1.3rem;margin:0}
+h2{font-size:1.05rem;margin:2.2rem 0 .5rem;padding-top:.4rem;border-top:1px solid var(--line)}
+h3{font-size:.98rem;margin:1.4rem 0 .3rem}
+p,li{font-size:.94rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0;font-size:.9rem}
+th,td{border:1px solid var(--line);padding:.5rem .7rem;text-align:left;vertical-align:top}
+th{background:var(--soft);white-space:nowrap}
+.notice{background:var(--soft);border-left:3px solid var(--accent);padding:.85rem 1.1rem;margin:1.2rem 0;font-size:.92rem}
+.back{font-size:.85rem;color:var(--muted);display:inline-block;margin:1.6rem 0}
+footer{border-top:1px solid var(--line);margin-top:2.4rem;padding:1.4rem 0 3rem;color:var(--muted);font-size:.84rem}
+footer a,.back{color:var(--muted)}
+code{background:var(--soft);padding:.1rem .3rem;border-radius:3px;font-size:.88em}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>販売条件・よくある質問</h1></div></header>
+<div class="wrap">
+
+<div class="notice">
+<strong>同じ元データは無料です。</strong>
+消費者庁と公正取引委員会の公表資料で、<strong>公共データ利用規約準拠なので誰でも無料で商用利用できます。</strong>
+JSON / JSONL / CSV と MCP サーバーが
+<a href="https://github.com/eoylab/keihyo-cases">keihyo-cases</a> と
+<a href="https://github.com/eoylab/jftc-actions">jftc-actions</a> にあります。
+<strong>JSON で足りるなら、買わないでください。</strong>
+</div>
+
+<h2>何を売っているのか</h2>
+<p><strong>データではなく、作業です。</strong>3つの法律（景品表示法・独占禁止法・取適法）の、
+所管も記録の形も違う処分を<strong>1つの表に揃える作業</strong>。手作業では2〜3時間かかります。</p>
+<table>
+<tr><th>価格</th><td><strong>¥3,000（税込）買い切り。</strong>月額ではありません</td></tr>
+<tr><th>形式</th><td>ZIP（約210KB）。ファイル4点</td></tr>
+<tr><th>収録件数</th><td><strong>512件</strong>（景品表示法 151／独占禁止法・取適法 361）。2010-04 〜 2026-08</td></tr>
+</table>
+<table>
+<tr><th><code>enforcement-combined.csv</code></th><td>全512件・15列の共通スキーマ。<strong>UTF-8 BOM 付きで Excel がそのまま開きます</strong></td></tr>
+<tr><th><code>SOURCES.md</code></th><td>出典URL <strong>181件</strong>の一覧</td></tr>
+<tr><th><code>COMMERCIAL-USE.md</code></th><td>商用利用についての確認書。<strong>稟議に添付できる形</strong></td></tr>
+<tr><th><code>README.md</code></th><td>列の意味。空欄が何を意味するか</td></tr>
+</table>
+
+<h2>収録していないもの</h2>
+<p><strong>買う前に読んでください。</strong>買ったあとに気づかれるより先に書いておきます。</p>
+<ul>
+<li><strong>課徴金額。全件入っていません。</strong>公表されている一覧表に金額の列がなく、
+年によっては<strong>alt が空の PNG 画像の中の表</strong>にしか存在しないためです。
+<strong>OCR で読んで事実として出すことはしていません。</strong>該当列には空欄ではなく理由の文字列が入ります
+（空欄は表計算で 0 として並べ替えられるため）</li>
+<li><strong>代表者氏名。</strong>処分の公表資料には必ず記載がありますが、収録していません</li>
+<li><strong>記述本文。</strong>「内容」「概要」の文章は両庁が書いたものなので、出典URLを渡します</li>
+<li><strong>違反かどうかの判定。</strong>各レコードは既に発出された処分の再記述です</li>
+</ul>
+<p><strong>収録範囲は、公表されている一覧表が返した範囲です。</strong>
+一覧表に載らない措置（確約計画の認定など）は入っていません。
+<strong>網羅していると主張しません。</strong>何が入っていないかは同梱の <code>README.md</code> と、
+無料版の <code>data/meta.json</code> / <code>data/unparsed.json</code> で確認できます。</p>
+
+<h2>どう届くか</h2>
+<table>
+<tr><th>受付</th><td><a href="https://github.com/eoylab/jftc-actions/issues/new?template=order-bundle.yml">GitHub の注文フォーム</a></td></tr>
+<tr><th>返信</th><td><strong>2営業日以内。</strong>そのときの件数・期間・出典数をお知らせします</td></tr>
+<tr><th>受け渡し</th><td>入金の確認後、<strong>ダウンロードリンクをお送りします</strong>（有効期限7日）</td></tr>
+<tr><th>作り直し</th><td>ZIP は<strong>ご注文のたびに最新データで生成</strong>します。古いファイルを使い回しません</td></tr>
+</table>
+<p><strong>カード決済はまだ用意できていません。</strong>準備が終わるまでは個別にご案内します。
+準備できた時点で、このページと注文フォームを差し替えます。</p>
+
+<h2>返金・キャンセル</h2>
+<p><strong>受け渡し前は、いつでもキャンセルできます。</strong>費用はかかりません。
+注文フォームのIssueに一言いただければ終わりです。</p>
+<p><strong>受け渡し後は、次の場合に全額返金します。</strong></p>
+<ul>
+<li><strong>内容がこのページの説明と違う場合</strong>（件数・列・ファイル構成）</li>
+<li>ファイルが破損して開けない場合</li>
+</ul>
+<p>それ以外の理由による、受け渡し後の返金は行いません。<strong>デジタルデータで、返却ができないためです。</strong>
+だから<strong>収録していないものを、買う前に上に書いています。</strong>
+判断がつかない場合は、注文フォームで「先に中身を見たい」と書いてください。</p>
+
+<h2>よくある質問</h2>
+
+<h3>無料の JSON と何が違うのですか</h3>
+<p><strong>データは同じです。</strong>違うのは、2所管の異なる記録が1つの表に揃っていること、
+出典URLが1ファイルにまとまっていること、商用利用の確認書が付いていることの3点です。
+<strong>自分で揃える時間があるなら、無料版で足ります。</strong></p>
+
+<h3>更新は付きますか</h3>
+<p><strong>付きません。買い切りは、そのときの内容です。</strong>
+月次で更新されるのは無料版のほうで、そちらは自動で増えていきます。
+更新の通知や保証が必要な場合は
+<a href="./pricing.html">別のtier</a>を見てください（こちらもまだ作っていません）。</p>
+
+<h3>再配布してよいですか</h3>
+<p><strong>元データは自由に使えます</strong>（公共データ利用規約準拠・商用可）。
+同梱の <code>COMMERCIAL-USE.md</code> に出典表記と加工の明示の条件が書いてあります。
+<strong>権利を売っているのではありません</strong>——権利はもともと誰にでもあります。</p>
+
+<h3>法人で買えますか。請求書は出せますか</h3>
+<p>注文フォームに書いてください。<strong>必要な書式を教えていただければ合わせます。</strong></p>
+
+<h3>データが間違っていたら</h3>
+<p><strong>注文フォームか
+<a href="https://github.com/eoylab/jftc-actions/issues/new">Issue</a> で教えてください。</strong>
+全レコードに出典URLが付いているので、突き合わせられます。
+修正した場合は無料版にも反映し、購入者にお知らせします。</p>
+
+<h2>販売者について</h2>
+<p><strong>販売者の表示は、決済の準備と同時に整えます。</strong>
+現在は個別対応のため、注文フォームでのやりとりが連絡経路です。</p>
+<p><strong>このページを「特定商取引法上必須の表示」とは書きません。</strong>
+どの表示がどこまで必要かの当てはめは専門家の領域で、
+<strong>ここに書いているのは当方の販売条件そのものです。</strong></p>
+
+<a class="back" href="./pricing.html">← 価格と他のtierに戻る</a>
+</div>
+<footer><div class="wrap">
+<p><strong>出典: 消費者庁ウェブサイト／公正取引委員会ウェブサイト。</strong>
+元データは公共データ利用規約（第1.0版）準拠。コードは MIT。</p>
+<p><strong>本データは両庁が作成・公表したものではありません。</strong>
+<a href="https://github.com/eoylab/jftc-actions">github.com/eoylab/jftc-actions</a></p>
+</div></footer>
+</body>
+</html>
